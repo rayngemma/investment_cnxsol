@@ -1,2 +1,0 @@
-# investment_cnxsol
-investment
