@@ -148,9 +148,8 @@ main{padding-left:var(--rail)}
 #cover h1{margin:.6em 0 0;font-size:clamp(26px,4vw,50px);font-weight:700;letter-spacing:-.04em;line-height:1.24;max-width:26ch}
 #cover h1 .l1{font-style:normal;color:var(--cover-h1)}
 #cover h1 .l2{color:rgba(244,242,237,.42)}
-#cover .sub{margin-top:clamp(24px,5vh,48px);display:grid;grid-template-columns:minmax(0,1.7fr) auto;gap:26px;
-  align-items:end;border-top:1px solid rgba(244,242,237,.2);padding-top:20px}
-#cover .sub p{margin:0;max-width:70ch;font-size:14.5px;line-height:1.9;color:rgba(244,242,237,.8);font-weight:350}
+#cover .sub{margin-top:clamp(24px,5vh,48px);display:flex;justify-content:flex-end;
+  align-items:flex-end;border-top:1px solid rgba(244,242,237,.2);padding-top:20px}
 #cover .sub .meta{font-family:var(--sans);font-weight:300;font-size:11px;letter-spacing:.02em;color:rgba(244,242,237,.45);text-align:right;line-height:2.1}
 
 /* ===== 지표 그리드 ===== */
@@ -239,6 +238,41 @@ main{padding-left:var(--rail)}
 .vs dd{margin:14px 0 0;font-family:var(--mono);font-size:clamp(34px,5vw,58px);line-height:1;letter-spacing:-.03em}
 .vs dd small{display:block;font-family:var(--sans);font-size:12px;color:var(--ink-70);margin-top:14px;line-height:1.7;letter-spacing:0}
 .vs > div.hi dd{color:var(--gold)}
+
+/* 채널 비중 — 자사 채널 확대 */
+.mix{margin-top:clamp(26px,4vh,42px)}
+.mixhd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.mixhd span{display:flex;flex-direction:column;gap:7px}
+.mixhd span.own{text-align:right}
+.mixhd b{font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--ink-70)}
+.mixhd span.own b{color:var(--gold)}
+.mixhd em{font-style:normal;font-weight:500;font-variant-numeric:tabular-nums;
+  font-size:clamp(30px,4.2vw,50px);line-height:1;letter-spacing:-.035em;color:var(--ink)}
+.mixhd span.own em{color:var(--gold)}
+.mixbar{position:relative;height:34px;margin-top:18px;background:rgba(19,21,24,.05)}
+.mixbar i{position:absolute;top:0;bottom:0;display:block;
+  transition:width 1.5s cubic-bezier(.2,.7,.2,1) .3s}
+.mixbar i.ext{left:0;width:100%;background:#B9B4A8}
+.mixbar i.own{right:0;width:0;background:var(--gold)}
+.mixghost{position:absolute;top:0;bottom:0;right:22%;width:0;z-index:2;
+  border:1px dashed rgba(169,138,75,.6);border-right:0;background:rgba(169,138,75,.16);
+  opacity:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1) 1.7s,opacity .7s ease 1.7s}
+.mix.in .mixbar i.ext{width:78%}
+.mix.in .mixbar i.own{width:22%}
+.mix.in .mixghost{width:14%;opacity:1}
+.mixnote{margin:11px 0 0;text-align:right;font-family:var(--sans);font-weight:300;
+  font-size:11.5px;color:var(--gold);opacity:0;transition:opacity .7s ease 2.4s}
+.mix.in .mixnote{opacity:1}
+.mixcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr) minmax(0,1fr);
+  border-top:1px solid var(--line);margin-top:clamp(30px,5vh,48px)}
+.mixcols > div{padding:22px 20px 22px 0}
+.mixcols > div + div{padding-left:22px;border-left:1px solid var(--line)}
+.mixcols h5{margin:0 0 11px;font-family:var(--sans);font-weight:300;font-size:11px;
+  letter-spacing:.05em;color:var(--ink-40)}
+.mixcols p{margin:0;font-size:13px;line-height:1.85;font-weight:350;color:var(--ink-70)}
+.mixcols .mid{display:flex;align-items:center}
+.mixcols .mid p{color:var(--gold);font-size:13.5px;font-weight:400;line-height:1.75}
+.mixcols .ownc h5{color:var(--gold);opacity:.8}
 
 /* ===== 센트럴포스트 ===== */
 #central{background:var(--b-cp);color:#F4F2ED}
@@ -348,6 +382,10 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
   .strength ol{grid-template-columns:1fr}
   .strength li{padding:16px 0 18px}
   .vs{grid-template-columns:1fr}
+  .mixcols{grid-template-columns:1fr}
+  .mixcols > div + div{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+  .mixcols .mid{padding-top:20px}
+  .mixhd em{font-size:clamp(26px,9vw,36px)}
   .store{grid-template-columns:1fr}
   .store > div + div{border-left:0;padding-left:0}
   .scrollx::after{display:block}
@@ -419,7 +457,6 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
     <p class="k">3개년 사업계획서 · 투자 제안</p>
     <h1><em class="l1">합리적인 가격, <span style="white-space:nowrap">기준이 되는 제품.</span></em><br><span class="l2">세 브랜드를 소개합니다.</span></h1>
     <div class="sub">
-      <p>포스트맨(남성&nbsp;제화), 포스트앤코(여성&nbsp;제화), 워드로브&nbsp;스탠다드(남성&nbsp;의류).<br><span style="white-space:nowrap">센트럴포스트 온·오프라인</span>에서 직접 판매하며 브랜드를 양성하고 자립을 목표로 합니다.</p>
       <div class="meta">
         대상 기간 2026 — 2028<br>
         실적 기준 2026.1.1 — 6.30<br>
@@ -467,12 +504,33 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
     <div class="chan rv d1" id="chan"></div>
     <p class="src" style="margin-top:16px">센트럴포스트(서울숲)는 자사 오프라인 매장, 센트럴포스트 온라인몰은 자사 온라인 채널입니다. 두 채널 모두 세 브랜드를 함께 취급합니다.</p>
 
-    <p class="eyebrow rv" style="margin-top:clamp(48px,8vh,80px)">반품률 — 오프라인 확장의 근거</p>
-    <dl class="vs rv d1">
-      <div><dt>외부 온라인 플랫폼</dt><dd>46%<small>포스트맨 기준. 총판매 16.4억 중 7.6억이 반품으로 되돌아왔습니다. 물류비와 재입고 손실이 매출과 함께 발생합니다.</small></dd></div>
-      <div class="hi"><dt>센트럴포스트 오프라인</dt><dd>9%<small>같은 브랜드, 같은 상품인데 반품률이 5분의 1입니다. 신어보고 사기 때문입니다. 오프라인 매출 1원이 온라인 1원보다 남는 이유입니다.</small></dd></div>
-    </dl>
-    <p class="src" style="margin-top:16px">2026년 상반기 포스트맨 금액 기준 반품률. 워드로브 스탠다드도 동일한 경향입니다 — 온라인 36%, 오프라인 8%.</p>
+    <p class="eyebrow rv" style="margin-top:clamp(48px,8vh,80px)">자사 채널 비중 — 이익 구조의 핵심</p>
+    <p class="body-l rv d1" style="margin-top:18px;max-width:none">같은 상품을 같은 값에 팔아도, 어느 채널에서 팔리느냐에 따라 이익의 구조가 바뀝니다. <b>세 브랜드 모두 자사 운영 온·오프라인 채널에서 매출 증가와 신규 고객 유입을 만들기 위해, 세일즈와 마케팅을 전사적으로 진행할 예정입니다.</b></p>
+    <div class="mix rv d1">
+      <div class="mixhd">
+        <span class="ext"><b>외부 플랫폼</b><em>78%</em></span>
+        <span class="own"><b>자사 채널</b><em>22%</em></span>
+      </div>
+      <div class="mixbar" role="img" aria-label="포스트맨 채널 비중 — 외부 플랫폼 78퍼센트, 자사 채널 22퍼센트">
+        <i class="ext"></i>
+        <span class="mixghost"></span>
+        <i class="own"></i>
+      </div>
+      <p class="mixnote">← 자사 채널 비중을 확대해 나갑니다</p>
+      <div class="mixcols">
+        <div>
+          <h5>외부 플랫폼</h5>
+          <p>무신사·29CM·네이버·한섬 EQL 등 이미 검증된 플랫폼에서 제품력을 인정받았습니다. 경쟁 브랜드와 나란히 놓인 매대에서 나온 결과이고, 그만큼 더 많은 고객에게 브랜드를 알리고 판매할 수 있는 채널입니다.</p>
+        </div>
+        <div class="mid">
+          <p>각 플랫폼이 가진 장점을 적극 활용할 예정입니다.</p>
+        </div>
+        <div class="ownc">
+          <h5>자사 채널</h5>
+          <p>고객에게 더 정성스러운 서비스와 혜택을 직접 제공할 수 있습니다. 판매 수수료가 발생하지 않는 구조를 잘 활용하면, 매출이 늘어날 때 영업이익 측면에서 유리해집니다.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -503,8 +561,8 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
     <ol class="rv d1">
       <li><b>플랫폼에서 검증된 상품력</b><span>무신사 3.27억, 29CM 2.70억. 타플랫폼에서 경쟁 브랜드와 나란히 놓인 채로 팔린 숫자입니다. 상품이 좋다는 가장 냉정한 증거입니다.</span></li>
       <li><b>자사 채널 비중이 아직 22%</b><span>공식몰 14.8% + 센트럴포스트 7.3%. 같은 상품을 우리 채널로 옮기기만 해도 수수료가 마진으로 남습니다. 성장이 아니라 회수의 영역입니다.</span></li>
-      <li><b>오프라인 반품률 9%</b><span>온라인 46% 대비 5분의 1입니다. 한남 매장이 열리면 매출과 수익성이 함께 올라갑니다.</span></li>
-      <li><b>사이즈·라스트 데이터</b><span>5,109족의 사이즈별 판매·반품 기록이 쌓여 있습니다. 다음 시즌 물량 배분이 감이 아니라 계산입니다.</span></li>
+      <li><b>인플루언서와 함께하는 제품 기획</b><span>각 분야에서 활약하며 대중이 공감하는 인플루언서와 협업해 신제품을 기획합니다. 시대의 흐름을 읽은 협업은 상품의 완성도와 화제성을 동시에 만듭니다.</span></li>
+      <li><b>신제품으로 트렌드를 제안한다</b><span>좋은 신제품을 고객에게 먼저 내놓습니다. 유행을 뒤따르는 대신, 고객이 포스트맨의 제품에서 트렌드의 흐름을 읽을 수 있게 만드는 것이 목표입니다.</span></li>
     </ol>
   </div>
 </section>
@@ -569,8 +627,8 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
     <ol class="rv d1">
       <li><b>공식몰 없이 만든 매출</b><span>가장 기본적인 채널이 아직 없습니다. 0.49억은 자사 유통과 플랫폼만으로 낸 숫자이고, 공식몰 오픈은 계획이 아니라 미실행 과제입니다.</span></li>
       <li><b>4월 이후 판매 곡선의 전환</b><span>1~3월 월 0.02~0.03억에서 4월 0.19억으로 올라섰습니다. 상품이 시장에 걸린 시점이 확인됩니다.</span></li>
-      <li><b>의류 — 재구매 주기가 짧은 카테고리</b><span>제화보다 구매 빈도가 높습니다. 같은 고객에게서 연간 더 많은 매출을 만들 수 있는 자리입니다.</span></li>
-      <li><b>제화 두 브랜드와의 교차 판매</b><span>센트럴포스트 한 매장에서 신발과 옷을 함께 제안합니다. 객단가를 올리는 가장 직접적인 방법입니다.</span></li>
+      <li><b>제화보다 넓은 시장, 잦은 구매</b><span>의류는 제화보다 시장이 크고 구매 빈도와 재구매율이 높습니다. 고객 한 명을 기준으로 보면 연간 더 높은 매출을 만들 수 있는 브랜드입니다.</span></li>
+      <li><b>토탈 라이프스타일로의 확장</b><span>신발에서 옷으로 넓어지면 고객의 옷장 전체를 제안할 수 있습니다. 객단가를 올리는 차원을 넘어, 토탈 라이프스타일 브랜드로서 고객에게 접근하는 것이 가능해집니다.</span></li>
     </ol>
   </div>
 </section>
@@ -585,7 +643,7 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
       </div>
       <div class="rv d1">
         <p class="body-l" style="margin-top:0">센트럴포스트는 자사가 운영하는 온·오프라인 유통입니다. 서울숲 매장에서 상반기 <b>2.57억</b>이 판매되었고, 이 중 <b>1.06억(41%)</b>이 자사 세 브랜드입니다. 나머지는 함께 편집한 외부 브랜드입니다.</p>
-        <p class="body-l">신규 브랜드가 광고비 없이 매대에 오르고, 고객 반응을 즉시 측정하고, 반품률 9%로 판매됩니다. 포스트앤코 매출의 93%, 워드로브 스탠다드 매출의 70%가 여기서 나왔다는 것이 그 증거입니다.</p>
+        <p class="body-l">신규 브랜드가 광고비 없이 매대에 오르고, 고객 반응을 즉시 측정하고, 판매 수수료 없이 팔립니다. 포스트앤코 매출의 93%, 워드로브 스탠다드 매출의 70%가 여기서 나왔다는 것이 그 증거입니다.</p>
         <p class="body-l">2026년 연말 <b>한남 매장</b>이 열리면 이 장치가 두 배가 됩니다.</p>
       </div>
     </div>
@@ -617,7 +675,7 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
   <div class="wrap">
     <p class="eyebrow">08 — 3개년 사업계획</p>
     <h2 class="h-sec rv" style="max-width:22ch">상반기 실적에서 쌓아 올린 숫자.</h2>
-    <p class="body-l rv d1" style="margin-top:22px;max-width:58ch">2026년은 상반기 실판매에 하반기 성수기와 한남 매장 오픈을 반영했습니다. 2027–2028년은 채널 수·매장 수·공식몰 가동이라는 확인 가능한 변수로 쌓았습니다.</p>
+    <p class="body-l rv d1" style="margin-top:22px;max-width:58ch">2026년은 상반기 실판매를 기준선으로 두고, 하반기 성수기와 한남 매장 오픈, 채널 확장을 반영한 의지치입니다. 2027–2028년은 채널 수·매장 수·공식몰 가동이라는 확인 가능한 변수로 쌓았습니다.</p>
 
     <svg id="chart" class="rv d1" role="img" aria-label="브랜드별 3개년 매출 계획"></svg>
     <div class="legend rv" id="legend"></div>
@@ -634,10 +692,10 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
 
     <p class="eyebrow rv" style="margin-top:clamp(48px,8vh,80px)">성장 동력 — 무엇을 늘려 매출을 만드는가</p>
     <dl class="qgrid rv d1">
-      <div><dt>오프라인 매장</dt><dd><b>1 → 2</b>서울숲에 더해 한남을 2026년 연말 오픈합니다. 반품률 9% 채널이 두 배가 됩니다.</dd></div>
+      <div><dt>오프라인 매장</dt><dd><b>1 → 2</b>서울숲에 더해 한남을 2026년 연말 오픈합니다. 수수료 없는 판매 거점이 두 배가 됩니다.</dd></div>
       <div><dt>공식몰</dt><dd><b>1 → 3</b>포스트앤코는 오픈 직후, 워드로브 스탠다드는 미오픈입니다. 수수료 없는 채널을 세 브랜드 모두 확보합니다.</dd></div>
       <div><dt>플랫폼 입점</dt><dd><b>확대</b>포스트맨이 검증한 무신사·29CM 계정에 나머지 두 브랜드를 순차 입점시킵니다.</dd></div>
-      <div><dt>교차 구매</dt><dd><b>측정 시작</b>한 매장에서 남성 제화·여성 제화·남성 의류를 함께 제안합니다. 객단가 상승분을 2027년 계획의 근거로 씁니다.</dd></div>
+      <div><dt>백화점 팝업</dt><dd><b>0 → &#8734;</b>지역별 대형 백화점 행사(팝업)를 통해 신규 고객 유입을 위한 세일즈 활동을 보다 적극적으로 전개합니다.</dd></div>
     </dl>
   </div>
 </section>
@@ -718,8 +776,8 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
         <p>포스트맨 매출의 62%가 무신사·29CM 두 곳에서 나옵니다. 수수료 인상이나 노출 정책 변화에 실적이 직접 노출됩니다.<br><br><b>대응 —</b> 공식몰과 센트럴포스트 비중을 3년간 <span class="fill">[%]</span>까지 올려 채널을 분산합니다.</p>
       </div>
       <div>
-        <h4><span class="lv">Risk 02</span>온라인 반품률 46%</h4>
-        <p>판매의 절반 가까이가 되돌아옵니다. 매출이 늘수록 물류·재입고 비용도 함께 늡니다.<br><br><b>대응 —</b> 반품률 9%인 오프라인 비중을 한남 매장으로 끌어올리고, 사이즈 가이드를 데이터로 보정합니다.</p>
+        <h4><span class="lv">Risk 02</span>자사 채널 전환 속도</h4>
+        <p>플랫폼에서 우리 브랜드를 알게 된 고객이 공식몰로 옮겨오지 않으면, 매출이 늘어도 수수료 구조는 그대로입니다. 자사 채널 비중이 계획만큼 오르지 않을 수 있습니다.<br><br><b>대응 —</b> 공식몰 전용 상품과 혜택으로 이동 동기를 만들고, 센트럴포스트 오프라인에서 고객 접점을 직접 늘립니다.</p>
       </div>
       <div>
         <h4><span class="lv">Risk 03</span>신규 두 브랜드의 절대 규모</h4>
@@ -756,10 +814,10 @@ footer .fine{margin-top:clamp(36px,6vh,64px);font-family:var(--sans);font-weight
 const PLAN = {
   years: ["2026E", "2027E", "2028E"],
   brands: [
-    { name:"포스트맨", short:"PM", color:"#6B5C46", h1:9.57, rev:[22, 38, 60],
-      basis:"상반기 9.57억 + 하반기 성수기·한남 매장 반영. 이후 자사 채널 이관과 플랫폼 확대." },
-    { name:"포스트앤코", short:"PC", color:"#A88C89", h1:0.13, rev:[0.7, 5, 15],
-      basis:"매장 1곳 → 공식몰·온라인몰·한남·플랫폼(29CM·EQL) 입점. 채널 수 증가분으로 산출." },
+    { name:"포스트맨", short:"PM", color:"#6B5C46", h1:9.57, rev:[30, 40, 55],
+      basis:"상반기 실판매 9.57억을 기준선으로, 하반기 성수기와 한남 매장 오픈, 자사 채널 확대를 반영한 의지치." },
+    { name:"포스트앤코", short:"PC", color:"#A88C89", h1:0.13, rev:[10, 25, 45],
+      basis:"3분기 공식몰 오픈과 플랫폼(29CM·EQL) 입점, 한남 매장 입점을 반영한 의지치. 채널 수 증가가 근거." },
     { name:"워드로브 스탠다드", short:"WS", color:"#5C7186", h1:0.49, rev:[1.7, 12, 30],
       basis:"최근 3개월 월평균 0.14억 기준 연환산 + 공식몰 오픈·플랫폼 확대." }
   ]
